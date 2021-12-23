@@ -7,7 +7,35 @@ public class SortArray {
         Geben Sie ein neu erstelltes sortiertes Array zurück.
      */
     public static int[] sortArray(int[] values) {
-        return null;
+        // Arrays die leer sind oder nur ein Element enthalten können nicht sortiert werden.
+        if(values == null || values.length == 0 || values.length == 1) {
+            System.out.println("Array to short to sort.");
+            return values;
+        }
+
+        // um das übergebene Array nicht zu verändern wird es vor jeglicher Veränderung kopiert.
+        int[] toSort = Arrays.copyOf(values, values.length);
+        // Es wird ein neues sortiertes Array angelegt.
+        int[] sorted = new int[toSort.length];
+
+        // Alle Stellen des neuen Arrays sollen befüllt werden, daher braucht es eine for-Schleife über die Länge dieses Arrays.
+        for (int i = 0; i < sorted.length; i++) {
+            int minValue = Integer.MAX_VALUE;
+            int indexOfMinValue = -1;
+            // Für jede Stelle des sortierten Arrays wird die aktuell kleinste Zahl im zu sortierenden Array gesucht.
+            for (int j = 0; j < toSort.length; j++) {
+                if(toSort[j] < minValue) {
+                    minValue = toSort[j];
+                    indexOfMinValue = j;
+                }
+            }
+            // Die kleinste Zahl wird an die aktuelle Position des sortierten Arrays gespeichert.
+            sorted[i] = minValue;
+            // Die vorher kleinste Zahl wird ersetzt, damit sie im nächsten Durchgang nicht wieder die kleinste ist.
+            toSort[indexOfMinValue] = Integer.MAX_VALUE;
+        }
+
+        return sorted;
     }
 
     public static void main(String[] args) {
